@@ -430,9 +430,9 @@ dd {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  border: 1px solid color-mix(in srgb, var(--mat), var(--line) 52%);
+  border: 1px solid var(--mat-line, var(--line));
   border-radius: 999px;
-  background: color-mix(in srgb, var(--mat), var(--surface) var(--mat-soft-alpha));
+  background: var(--mat-soft, var(--surface-2));
   color: var(--ink);
 }
 
@@ -450,7 +450,7 @@ dd {
   flex: 0 0 auto;
   border-radius: 999px;
   background: var(--mat);
-  box-shadow: 0 0 0 1px color-mix(in srgb, var(--mat), var(--surface) 28%);
+  box-shadow: 0 0 0 1px var(--mat-line, var(--line));
 }
 
 .content {
@@ -777,7 +777,7 @@ tbody tr.selected {
   display: grid;
   gap: 11px;
   background:
-    linear-gradient(135deg, color-mix(in srgb, var(--mat), var(--surface) 78%), transparent 58%),
+    linear-gradient(135deg, var(--mat-soft, transparent), transparent 58%),
     var(--surface);
   border-bottom: 1px solid var(--line);
 }
@@ -1087,7 +1087,7 @@ tbody tr.selected {
   padding-right: 38px;
   display: grid;
   gap: 8px;
-  background: linear-gradient(180deg, color-mix(in srgb, var(--mat), var(--surface) 88%), var(--surface));
+  background: linear-gradient(180deg, var(--mat-soft, var(--surface-2)), var(--surface));
   cursor: pointer;
 }
 
@@ -1193,8 +1193,8 @@ tbody tr.selected {
   position: absolute;
   top: 5px;
   height: 16px;
-  border: 1px solid color-mix(in srgb, var(--mat), var(--line-strong) 34%);
-  background: color-mix(in srgb, var(--mat), var(--surface) 62%);
+  border: 1px solid var(--mat-line, var(--line-strong));
+  background: var(--mat-soft, var(--surface-2));
 }
 
 .boxplot-median {
@@ -1439,7 +1439,7 @@ tbody tr.selected {
 }
 
 .radar-fill {
-  fill: color-mix(in srgb, var(--mat, #278f8d), transparent 78%);
+  fill: var(--mat-soft, rgba(39, 143, 141, 0.16));
   stroke: none;
 }
 

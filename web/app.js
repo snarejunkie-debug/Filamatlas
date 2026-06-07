@@ -1972,8 +1972,8 @@ function unique(values) {
 
 function colorStyle(value, scope = "base", baseHint = "") {
   const { hue, sat } = colorToken(value, scope, baseHint);
-  const rgb = hslToRgb(hue, sat, 48);
-  return `--mat:${rgb};--mat-h:${hue};--mat-s:${sat}%;`;
+  const { r, g, b } = hslToRgbComponents(hue, sat, 48);
+  return `--mat:rgb(${r}, ${g}, ${b});--mat-soft:rgba(${r}, ${g}, ${b}, 0.16);--mat-line:rgba(${r}, ${g}, ${b}, 0.38);--mat-h:${hue};--mat-s:${sat}%;`;
 }
 
 function colorToken(value, scope = "base", baseHint = "") {
@@ -2002,6 +2002,11 @@ function modHue(value) {
 }
 
 function hslToRgb(hue, sat, light) {
+  const { r, g, b } = hslToRgbComponents(hue, sat, light);
+  return `rgb(${r}, ${g}, ${b})`;
+}
+
+function hslToRgbComponents(hue, sat, light) {
   const s = clamp(sat / 100, 0, 1);
   const l = clamp(light / 100, 0, 1);
   const c = (1 - Math.abs(2 * l - 1)) * s;
@@ -2017,7 +2022,11 @@ function hslToRgb(hue, sat, light) {
   else if (hp < 5) [r, g, b] = [x, 0, c];
   else [r, g, b] = [c, 0, x];
   const m = l - c / 2;
-  return `rgb(${Math.round((r + m) * 255)}, ${Math.round((g + m) * 255)}, ${Math.round((b + m) * 255)})`;
+  return {
+    r: Math.round((r + m) * 255),
+    g: Math.round((g + m) * 255),
+    b: Math.round((b + m) * 255),
+  };
 }
 
 function initTooltip() {

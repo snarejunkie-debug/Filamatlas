@@ -65,5 +65,4 @@ The parser/build scripts expect the raw `filament_datasheets/` corpus for full d
 
 ## License
 
-No project license has been selected yet. Until one is added, the repository is source-available for review and feedback, but not explicitly open source.
-
+This project is licensed under the MIT License. The license applies to the project code, UI, scripts, documentation, and database curation. Vendor datasheets and third-party source material remain governed by their original owners and are not redistributed in this repository.

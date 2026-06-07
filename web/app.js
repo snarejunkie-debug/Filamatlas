@@ -297,8 +297,7 @@ function metricValueText(value, unit, source) {
 function initTheme() {
   const requested = new URLSearchParams(window.location.search).get("theme");
   const stored = localStorage.getItem("filament-atlas-theme");
-  const prefersDark = window.matchMedia?.("(prefers-color-scheme: dark)").matches;
-  const theme = ["light", "dark"].includes(requested) ? requested : stored || (prefersDark ? "dark" : "light");
+  const theme = ["light", "dark"].includes(requested) ? requested : stored || "light";
   document.documentElement.dataset.theme = theme;
   els.themeToggle.checked = theme === "dark";
   els.themeToggle.addEventListener("change", () => {

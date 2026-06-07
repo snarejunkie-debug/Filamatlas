@@ -52,6 +52,21 @@
   --mat-soft-alpha: 90%;
 }
 
+:root[data-theme="light"] {
+  color-scheme: light;
+  --bg: #f6f7f7;
+  --bg-raised: #ffffff;
+  --surface: #ffffff;
+  --surface-2: #f2f4f4;
+  --surface-3: #e6ebea;
+  --ink: #1f2426;
+  --muted: #667372;
+  --soft: #899391;
+  --line: #d5dddd;
+  --line-strong: #aebaba;
+  --shadow: 0 16px 36px rgba(33, 31, 25, 0.08);
+}
+
 * {
   box-sizing: border-box;
 }
@@ -68,6 +83,14 @@ body {
   background-image:
     linear-gradient(180deg, color-mix(in srgb, var(--bg), var(--surface) 22%), var(--bg) 360px);
   color: var(--ink);
+}
+
+:root[data-theme="light"],
+:root[data-theme="light"] body,
+:root[data-theme="light"] .layout,
+:root[data-theme="light"] .content {
+  background-color: #f6f7f7;
+  color: #1f2426;
 }
 
 button,
@@ -374,6 +397,43 @@ textarea {
   border-radius: 8px;
   background: var(--surface);
   box-shadow: var(--shadow);
+}
+
+:root[data-theme="light"] .topbar,
+:root[data-theme="light"] .filters,
+:root[data-theme="light"] .stats-panel,
+:root[data-theme="light"] .legend-panel,
+:root[data-theme="light"] .table-panel,
+:root[data-theme="light"] .detail-panel,
+:root[data-theme="light"] .compare-panel,
+:root[data-theme="light"] .family-panel,
+:root[data-theme="light"] .map-panel,
+:root[data-theme="light"] .spread-panel,
+:root[data-theme="light"] .radar-panel,
+:root[data-theme="light"] .corpus-summary-panel,
+:root[data-theme="light"] .metric-card,
+:root[data-theme="light"] .fingerprint-card,
+:root[data-theme="light"] .thermal-card,
+:root[data-theme="light"] .source-card,
+:root[data-theme="light"] .feedback-card,
+:root[data-theme="light"] .pin-card {
+  background-color: #ffffff;
+  color: #1f2426;
+  border-color: #d5dddd;
+}
+
+:root[data-theme="light"] th,
+:root[data-theme="light"] .panel-header,
+:root[data-theme="light"] .detail-toolbar,
+:root[data-theme="light"] .segmented,
+:root[data-theme="light"] .map-reset-button,
+:root[data-theme="light"] .clear-filters-button,
+:root[data-theme="light"] input,
+:root[data-theme="light"] select,
+:root[data-theme="light"] textarea {
+  background-color: #f2f4f4;
+  color: #1f2426;
+  border-color: #d5dddd;
 }
 
 .stats-panel,

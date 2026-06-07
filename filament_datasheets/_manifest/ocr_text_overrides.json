@@ -1,0 +1,93 @@
+{
+  "description": "OCR/vision text sidecar for image-only datasheets. Keys are repository-relative PDF paths; rows use label | value unit | method | context so the shared parser can extract observations without treating unit exponents as values.",
+  "entries": {
+    "filament_datasheets/Fiberlogy/Fiberlogy - Easy PLA Filament - 1.75 mm - 1 kg - technical_datasheet.pdf": {
+      "mode": "manual_vision_from_rendered_pdf",
+      "text": "Technical Data Sheet: Fiberlogy EASY PLA\nTrade Name\nFiberlogy EASY PLA\nManufacturer\nFiberlab S.A., Brzezie 387, 32-014 Brzezie, Poland\nDescription\nEASY PLA filament designed for printing in FFF/FDM technology, available in different colors, wound on a spool or as a refill, vacuum-packed in a plastic bag, placed in a cardboard box.\nLast update: May 20, 2025",
+      "rows": [
+        "Diameter | 1.75 mm | Technical Information",
+        "Diameter | 2.85 mm | Technical Information",
+        "Diameter Tolerance | 0.02 mm | Technical Information",
+        "Avg Roundness | 0.01 mm | Technical Information",
+        "Net Weight | 0.85 kg | Technical Information",
+        "Print Temperature | 200 - 230 C | Technical Information",
+        "Bed Temperature | 50 - 70 C | Technical Information",
+        "Specific Density | 1.24 g/cm3 | ASTM D792",
+        "Tensile Strength @ Yield | 60 MPa | ASTM D882 | yield",
+        "Tensile Strength @ Break | 53 MPa | ASTM D882 | break",
+        "Tensile Modulus | 3500 MPa | ASTM D882",
+        "Elongation @ Yield | 6 % | ASTM D882 | yield",
+        "Flexural Strength | 81 MPa | ASTM D790",
+        "Flexural Modulus | 3800 MPa | ASTM D790",
+        "Izod Impact Strength (Notched) @ 23C | 16 J/m | ASTM D256 | notched at 23 C",
+        "Heat Distortion Temperature @ 0.45 MPa | 55 C | ASTM E2092 | 0.45 MPa load",
+        "Glass Transition Temperature Tg | 55 - 60 C | ASTM D3418",
+        "Melting Temperature Tm | 145 - 160 C | ASTM D3418"
+      ]
+    },
+    "filament_datasheets/Fiberlogy/Fiberlogy - Impact PLA Filament - 1.75 mm - 0.85 kg - technical_datasheet.pdf": {
+      "mode": "manual_vision_from_rendered_pdf",
+      "text": "Technical Data Sheet: Fiberlogy IMPACT PLA\nTrade Name\nFiberlogy IMPACT PLA\nManufacturer\nFiberlab S.A., Brzezie 387, 32-014 Brzezie, Poland\nDescription\nIMPACT PLA filament designed for printing in FFF/FDM technology, available in different colors, wound on a spool, vacuum-packed in a plastic bag, placed in a cardboard box.\nMechanical and starred thermal data are for 3D printed parts, XY axis, 100% infill, annealed at 110C / 15min.\nLast update: May 26, 2025",
+      "rows": [
+        "Diameter | 1.75 mm | Technical Information",
+        "Diameter Tolerance | 0.02 mm | Technical Information",
+        "Avg Roundness | 0.01 mm | Technical Information",
+        "Net Weight | 0.85 kg | Technical Information",
+        "Print Temperature | 220 - 245 C | Technical Information",
+        "Bed Temperature | 50 - 70 C | Technical Information",
+        "Specific Density | 1.22 g/cm3 | ASTM D792",
+        "Tensile Strength | 40 MPa | ASTM D638 | XY axis, annealed at 110 C / 15 min",
+        "Tensile Modulus | 2870 MPa | ASTM D638 | XY axis, annealed at 110 C / 15 min",
+        "Flexural Strength | 73 MPa | ASTM D790 | XY axis, annealed at 110 C / 15 min",
+        "Flexural Modulus | 2410 MPa | ASTM D790 | XY axis, annealed at 110 C / 15 min",
+        "Izod Impact Strength (Notched) @ 23C | 160 J/m | ASTM D256 | notched at 23 C, XY axis, annealed at 110 C / 15 min",
+        "Heat Distortion Temperature @ 0.45 MPa | 75 - 85 C | ASTM E2092 | 0.45 MPa load, XY axis, annealed at 110 C / 15 min",
+        "Glass Transition Temperature Tg | 55 - 60 C | ASTM D3418",
+        "Melting Temperature Tm | 165 - 180 C | ASTM D3418"
+      ]
+    },
+    "filament_datasheets/Fiberlogy/Fiberlogy - PLA Mineral Filament - 1.75 mm - 1 kg - technical_datasheet.pdf": {
+      "mode": "manual_vision_from_rendered_pdf",
+      "text": "Technical Data Sheet: Fiberlogy PLA MINERAL\nTrade Name\nFiberlogy PLA MINERAL\nManufacturer\nFiberlab S.A., Brzezie 387, 32-014 Brzezie, Poland\nDescription\nPLA MINERAL filament designed for printing in FFF/FDM technology, available in different colors, wound on a spool, vacuum-packed in a plastic bag, placed in a cardboard box.\nLast update: May 29, 2025",
+      "rows": [
+        "Diameter | 1.75 mm | Technical Information",
+        "Diameter | 2.85 mm | Technical Information",
+        "Diameter Tolerance | 0.02 mm | Technical Information",
+        "Avg Roundness | 0.01 mm | Technical Information",
+        "Net Weight | 0.85 kg | Technical Information",
+        "Print Temperature | 190 - 210 C | Technical Information",
+        "Bed Temperature | 50 - 70 C | Technical Information",
+        "Specific Density | 1.38 g/cm3 | ISO 1183",
+        "Tensile Strength @ Yield | 45 MPa | ISO 527 | yield",
+        "Tensile Strength @ Break | 30 MPa | ISO 527 | break",
+        "Tensile Modulus | 3500 MPa | ISO 527",
+        "Elongation @ Yield | 3 % | ISO 527 | yield",
+        "Elongation @ Break | 23 % | ISO 527 | break",
+        "Charpy Impact Strength (Unnotched) @ 23C | 59 kJ/m2 | ISO 179 | unnotched at 23 C",
+        "Heat Distortion Temperature @ 0.45 MPa | 48 C | ISO 75 | 0.45 MPa load"
+      ]
+    },
+    "filament_datasheets/Fiberlogy/Fiberlogy - PLA+CF Filament - 1.75 mm - 0.85 kg - technical_datasheet.pdf": {
+      "mode": "manual_vision_from_rendered_pdf",
+      "text": "Technical Data Sheet: Fiberlogy PLA CF\nTrade Name\nFiberlogy PLA CF\nManufacturer\nFiberlab S.A., Brzezie 387, 32-014 Brzezie, Poland\nDescription\nPLA CF filament designed for printing in FFF/FDM technology, available in black color, wound on a spool, vacuum-packed in a plastic bag, placed in a cardboard box.\nStarred thermal values are annealed.\nLast update: May 26, 2025",
+      "rows": [
+        "Diameter | 1.75 mm | Technical Information",
+        "Diameter Tolerance | 0.02 mm | Technical Information",
+        "Avg Roundness | 0.01 mm | Technical Information",
+        "Net Weight | 0.85 kg | Technical Information",
+        "Print Temperature | 210 - 230 C | Technical Information",
+        "Bed Temperature | 60 C | Technical Information",
+        "Specific Density | 1.26 g/cm3 | ISO 1183",
+        "Tensile Strength @ Yield | 55 MPa | ISO 527 | yield",
+        "Tensile Strength @ Break | 50 MPa | ISO 527 | break",
+        "Tensile Modulus | 8500 MPa | ISO 527",
+        "Elongation @ Yield | 1.3 % | ISO 527 | yield",
+        "Elongation @ Break | 2.4 % | ISO 527 | break",
+        "Charpy Impact Strength (Unnotched) @ 23C | 100.0 kJ/m2 | ISO 179 | unnotched at 23 C",
+        "Charpy Impact Strength (Notched) @ 23C | 3.1 kJ/m2 | ISO 179 | notched at 23 C",
+        "Heat Distortion Temperature @ 0.45 MPa | 137 C | ISO 75 | 0.45 MPa load, annealed",
+        "Vicat Softening Temperature | 89 C | ISO 306 | annealed"
+      ]
+    }
+  }
+}

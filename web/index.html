@@ -1,0 +1,343 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Filament Material Atlas</title>
+    <link rel="stylesheet" href="styles.css?v=20260607-github-prep">
+    <script src="site-config.js"></script>
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-mark" data-tip="Color-coded material families with normalized property comparisons.">
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
+        <div>
+          <h1>Filament Material Atlas</h1>
+          <p id="summaryText">Loading material database...</p>
+        </div>
+      </div>
+
+      <nav class="view-tabs" aria-label="Atlas sections">
+        <button class="tab-button is-active" type="button" data-jump="browseSection">
+          <i data-lucide="layout-grid"></i>
+          <span>Browse</span>
+        </button>
+        <button class="tab-button" type="button" data-jump="compareSection">
+          <i data-lucide="columns-3"></i>
+          <span>Compare</span>
+        </button>
+        <button class="tab-button" type="button" data-jump="familySection">
+          <i data-lucide="bar-chart-3"></i>
+          <span>Families</span>
+        </button>
+        <button class="tab-button" type="button" data-jump="plotSection">
+          <i data-lucide="scatter-chart"></i>
+          <span>Plot</span>
+        </button>
+      </nav>
+
+      <div class="top-actions">
+        <button id="resetFilters" class="icon-button" type="button" data-tip="Reset filters">
+          <i data-lucide="rotate-ccw"></i>
+          <span class="sr-only">Reset filters</span>
+        </button>
+        <label class="theme-switch" data-tip="Switch between light and dark interface modes.">
+          <span>Light</span>
+          <input id="themeToggle" type="checkbox">
+          <span class="switch-track" aria-hidden="true"><span></span></span>
+          <span>Dark</span>
+        </label>
+      </div>
+    </header>
+
+    <main class="layout">
+      <aside class="filters" aria-label="Filters">
+        <label>
+          Search
+          <input id="searchInput" type="search" placeholder="PLA Basic, PETG-CF, Prusament...">
+        </label>
+
+        <label>
+          Supplier
+          <select id="supplierFilter"></select>
+        </label>
+
+        <label>
+          Base material
+          <select id="baseFilter"></select>
+        </label>
+
+        <label>
+          Material family
+          <select id="familyFilter"></select>
+        </label>
+
+        <label>
+          Required property
+          <select id="propertyFilter"></select>
+        </label>
+
+        <label class="checkbox">
+          <input id="parsedOnly" type="checkbox" checked>
+          <span>Parsed values only</span>
+        </label>
+
+        <button id="clearFilters" class="clear-filters-button" type="button">
+          <i data-lucide="filter-x"></i>
+          <span>Clear all filters</span>
+        </button>
+
+        <section class="stats-panel">
+          <div class="panel-title-row">
+            <h2>Corpus</h2>
+            <span id="generatedDate"></span>
+          </div>
+          <dl id="corpusStats"></dl>
+        </section>
+
+        <section class="legend-panel">
+          <div class="panel-title-row">
+            <h2>Material Colors</h2>
+            <span id="baseCount"></span>
+          </div>
+          <div id="baseLegend" class="base-legend"></div>
+        </section>
+      </aside>
+
+      <section class="content">
+        <section class="overview-strip" aria-label="Overview">
+          <div class="selected-summary" id="selectedSummary"></div>
+        </section>
+
+        <section id="browseSection" class="browser-grid">
+          <div class="table-panel">
+            <div class="panel-header">
+              <div>
+                <h2>Materials</h2>
+                <p>Search, filter, pin, and select records.</p>
+              </div>
+              <span id="resultCount"></span>
+            </div>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th aria-sort="none">
+                      <button class="sort-button" type="button" data-sort-key="product" data-sort-label="Product">
+                        <span>Product</span><span class="sort-indicator" aria-hidden="true">↕</span>
+                      </button>
+                    </th>
+                    <th aria-sort="none">
+                      <button class="sort-button" type="button" data-sort-key="supplier" data-sort-label="Supplier">
+                        <span>Supplier</span><span class="sort-indicator" aria-hidden="true">↕</span>
+                      </button>
+                    </th>
+                    <th aria-sort="none">
+                      <button class="sort-button" type="button" data-sort-key="base" data-sort-label="Base">
+                        <span>Base</span><span class="sort-indicator" aria-hidden="true">↕</span>
+                      </button>
+                    </th>
+                    <th>Fingerprint</th>
+                    <th aria-sort="none">
+                      <button class="sort-button" type="button" data-sort-key="values" data-sort-label="Values">
+                        <span>Values</span><span class="sort-indicator" aria-hidden="true">↕</span>
+                      </button>
+                    </th>
+                    <th aria-sort="none">
+                      <button class="sort-button" type="button" data-sort-key="status" data-sort-label="Status">
+                        <span>Status</span><span class="sort-indicator" aria-hidden="true">↕</span>
+                      </button>
+                    </th>
+                    <th class="pin-col" aria-sort="none">
+                      <button class="sort-button" type="button" data-sort-key="pin" data-sort-label="Pin">
+                        <span>Pin</span><span class="sort-indicator" aria-hidden="true">↕</span>
+                      </button>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody id="materialsBody"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <article class="detail-panel">
+            <div class="detail-hero" id="detailHero"></div>
+            <div id="propertyChips" class="chips"></div>
+            <div id="heroMetrics" class="metric-grid"></div>
+            <div id="fingerprintPanel" class="fingerprint-panel"></div>
+            <div id="thermalPanel" class="thermal-panel"></div>
+            <div class="detail-toolbar">
+              <div class="segmented">
+                <button class="detail-tab is-active" type="button" data-detail-view="properties">Properties</button>
+                <button class="detail-tab" type="button" data-detail-view="sources">Sources</button>
+              </div>
+              <label class="advanced-toggle" data-tip="Basic shows the core comparison properties; Advanced shows every extracted property.">
+                <span>Basic</span>
+                <input id="advancedToggle" type="checkbox" aria-label="Property detail level">
+                <span class="switch-track" aria-hidden="true"><span></span></span>
+                <span>Advanced</span>
+              </label>
+            </div>
+            <div id="detailProperties" class="property-list"></div>
+            <div id="sourcePanel" class="source-panel" hidden></div>
+          </article>
+        </section>
+
+        <section id="compareSection" class="compare-panel">
+          <div class="panel-header">
+            <div>
+              <h2>Pinned Compare</h2>
+              <p>Pin up to five materials for quick side-by-side inspection.</p>
+            </div>
+            <span id="pinCount"></span>
+          </div>
+          <div id="pinTray" class="pin-tray"></div>
+          <div id="compareMatrix" class="compare-matrix"></div>
+        </section>
+
+        <section id="familySection" class="family-panel">
+          <div class="panel-header">
+            <div>
+              <h2>Material Family Explorer</h2>
+              <p id="familySummary">Inspect the range and mean for every numeric property in a base material.</p>
+            </div>
+            <label>
+              Base
+              <select id="familyBaseSelect"></select>
+            </label>
+          </div>
+          <div id="familyStats" class="family-stats"></div>
+        </section>
+
+        <section id="plotSection" class="analytics-grid">
+          <div class="map-panel">
+            <div class="panel-header">
+              <div>
+                <h2>Material Map</h2>
+                <p>Wheel over the plot to zoom, then drag the plot to pan; grid labels rescale with the visible data window.</p>
+              </div>
+              <div class="plot-controls">
+                <label>
+                  X
+                  <select id="mapX"></select>
+                </label>
+                <label>
+                  Y
+                  <select id="mapY"></select>
+                </label>
+                <label>
+                  Color
+                  <select id="mapColorBy">
+                    <option value="base_material">Base</option>
+                    <option value="material_family">Family</option>
+                    <option value="supplier">Supplier</option>
+                  </select>
+                </label>
+                <span id="mapZoomLabel" class="map-zoom-label">Zoom 100%</span>
+                <button id="resetMapZoom" class="map-reset-button" type="button" data-tip="Reset bubble plot zoom">
+                  <i data-lucide="scan"></i>
+                  <span>Reset</span>
+                </button>
+              </div>
+            </div>
+            <div id="materialMap" class="material-map"></div>
+          </div>
+
+          <div class="spread-panel">
+            <div class="panel-header">
+              <div>
+                <h2>Similar Material Spread</h2>
+                <p id="spreadHint">Select a material to see comparable entries.</p>
+              </div>
+              <select id="spreadMode">
+                <option value="material_family">Family</option>
+                <option value="base_material">Base material</option>
+              </select>
+            </div>
+            <div id="spreadRows" class="spread-list"></div>
+          </div>
+
+          <div class="radar-panel">
+            <div class="panel-header">
+              <div>
+                <h2>Radar Compare</h2>
+                <p>Pin up to four materials for color-matched radar. A/B are fallback group averages; Group by changes whether A/B list base materials or families.</p>
+              </div>
+            </div>
+            <div class="radar-controls">
+              <label>
+                A
+                <select id="radarA"></select>
+              </label>
+              <label>
+                B
+                <select id="radarB"></select>
+              </label>
+              <label>
+                Group by
+                <select id="radarGroup">
+                  <option value="base_material">Base material</option>
+                  <option value="material_family">Family</option>
+                </select>
+              </label>
+              <span id="radarZoomLabel" class="radar-zoom-label">Zoom 100%</span>
+            </div>
+            <div id="radarAxes" class="radar-axis-picker"></div>
+            <div id="radarChart" class="radar-chart"></div>
+            <div id="radarLegend" class="legend"></div>
+          </div>
+        </section>
+
+        <section class="corpus-summary-panel">
+          <div class="panel-header compact-header">
+            <div>
+              <h2>Corpus Summary</h2>
+              <p>Compact database coverage snapshot.</p>
+            </div>
+            <span id="generatedDateFooter"></span>
+          </div>
+          <div id="kpiCards" class="kpi-grid compact-kpi-grid"></div>
+        </section>
+
+      </section>
+    </main>
+
+    <div id="feedbackModal" class="feedback-modal" hidden>
+      <form id="feedbackForm" class="feedback-card">
+        <div class="feedback-head">
+          <div>
+            <h2>Record Bug</h2>
+            <p id="feedbackContext">Interface box</p>
+          </div>
+          <button id="feedbackClose" class="icon-button" type="button" data-tip="Close feedback form">
+            <i data-lucide="x"></i>
+            <span class="sr-only">Close feedback form</span>
+          </button>
+        </div>
+        <label>
+          Note
+          <textarea id="feedbackText" rows="5" required placeholder="What looks wrong or confusing?"></textarea>
+        </label>
+        <div class="feedback-actions">
+          <button id="feedbackExport" class="map-reset-button" type="button">
+            <i data-lucide="download"></i>
+            <span>Export Reports</span>
+          </button>
+          <button id="feedbackSubmit" class="primary-button" type="submit">
+            <i data-lucide="save"></i>
+            <span>Save Report</span>
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <div id="tooltip" class="tooltip" role="tooltip" hidden></div>
+
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <script src="app.js?v=20260607-github-prep"></script>
+  </body>
+</html>

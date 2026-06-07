@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>FDM Beam Bounds</title>
+    <link rel="stylesheet" href="styles.css?v=6">
+  </head>
+  <body>
+    <header class="app-bar">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <div>
+          <h1>FDM Beam Bounds</h1>
+          <p>Datasheet-driven beam screening with geometry, loads, sections, and risk bands.</p>
+        </div>
+      </div>
+      <div class="run-strip">
+        <span id="solveStatus" class="solve-status">Ready</span>
+        <button id="runSolve" class="primary-button" type="button">
+          <i data-lucide="play"></i>
+          <span>Run Bounds</span>
+        </button>
+      </div>
+    </header>
+
+    <main class="workbench">
+      <aside class="model-panel" aria-label="Model controls">
+        <section class="control-section">
+          <div class="section-title">
+            <h2>Material</h2>
+            <span id="materialScenarioNote">Realistic</span>
+          </div>
+          <label>
+            Preset
+            <select id="materialPreset">
+              <option value="PLA">PLA baseline</option>
+              <option value="PETG">PETG baseline</option>
+              <option value="ABS">ABS baseline</option>
+              <option value="Custom">Custom datasheet</option>
+            </select>
+          </label>
+          <div class="two-col">
+            <label>
+              E
+              <input id="materialE" type="number" min="100" step="50" value="3200">
+              <span>MPa</span>
+            </label>
+            <label>
+              Strength
+              <input id="materialStrength" type="number" min="1" step="1" value="58">
+              <span>MPa</span>
+            </label>
+          </div>
+          <label>
+            Print direction
+            <select id="printDirection">
+              <option value="along">Roads mostly along span</option>
+              <option value="mixed">Mixed / unknown</option>
+              <option value="across">Roads mostly across span</option>
+            </select>
+          </label>
+        </section>
+
+        <section class="control-section">
+          <div class="section-title">
+            <h2>Geometry</h2>
+            <span id="gridReadout">1 mm snap</span>
+          </div>
+          <div id="presetButtons" class="button-grid" aria-label="Geometry presets">
+            <button class="tool-button is-active" type="button" data-preset="beam"><i data-lucide="minus"></i><span>Beam</span></button>
+            <button class="tool-button" type="button" data-preset="notched"><i data-lucide="corner-right-down"></i><span>Notched</span></button>
+            <button class="tool-button" type="button" data-preset="tapered"><i data-lucide="triangle"></i><span>Tapered</span></button>
+            <button class="tool-button" type="button" data-preset="bracket"><i data-lucide="square"></i><span>Bracket</span></button>
+          </div>
+          <div class="two-col">
+            <label>
+              Grid
+              <select id="gridStep">
+                <option value="0.5">0.5 mm</option>
+                <option value="1" selected>1 mm</option>
+                <option value="2">2 mm</option>
+                <option value="5">5 mm</option>
+                <option value="10">10 mm</option>
+              </select>
+            </label>
+            <label>
+              Thickness
+              <input id="thickness" type="number" min="0.4" step="0.2" value="6">
+              <span>mm</span>
+            </label>
+          </div>
+          <label>
+            Zoom
+            <span class="zoom-control">
+              <button id="zoomOut" class="icon-control" type="button" aria-label="Zoom out"><i data-lucide="minus"></i></button>
+              <input id="zoom" type="range" min="0.65" max="2.8" step="0.05" value="1">
+              <button id="zoomIn" class="icon-control" type="button" aria-label="Zoom in"><i data-lucide="plus"></i></button>
+            </span>
+          </label>
+          <div class="view-pad" aria-label="Main view pan controls">
+            <button id="panUp" class="icon-control" type="button" aria-label="Pan up"><i data-lucide="chevron-up"></i></button>
+            <button id="panLeft" class="icon-control" type="button" aria-label="Pan left"><i data-lucide="chevron-left"></i></button>
+            <button id="resetView" class="icon-control" type="button" aria-label="Reset view"><i data-lucide="scan"></i></button>
+            <button id="panRight" class="icon-control" type="button" aria-label="Pan right"><i data-lucide="chevron-right"></i></button>
+            <button id="panDown" class="icon-control" type="button" aria-label="Pan down"><i data-lucide="chevron-down"></i></button>
+          </div>
+        </section>
+
+        <section class="control-section">
+          <div class="section-title">
+            <h2>Tools</h2>
+            <span id="toolLabel">Edit</span>
+          </div>
+          <div id="toolButtons" class="button-grid" aria-label="Drawing and model tools">
+            <button class="tool-button is-active" type="button" data-tool="edit"><i data-lucide="move"></i><span>Edit</span></button>
+            <button class="tool-button" type="button" data-tool="draw"><i data-lucide="pen-line"></i><span>Draw</span></button>
+            <button class="tool-button" type="button" data-tool="support"><i data-lucide="triangle"></i><span>Support</span></button>
+            <button class="tool-button" type="button" data-tool="pointLoad"><i data-lucide="arrow-down"></i><span>Point</span></button>
+            <button class="tool-button" type="button" data-tool="udl"><i data-lucide="align-justify"></i><span>UDL</span></button>
+            <button class="tool-button" type="button" data-tool="pan"><i data-lucide="hand"></i><span>Pan</span></button>
+          </div>
+          <div class="draw-actions">
+            <button id="closePolygon" class="secondary-button" type="button" disabled>Close Shape</button>
+            <button id="cancelDraw" class="secondary-button" type="button">Reset Draw</button>
+          </div>
+        </section>
+
+        <section class="control-section">
+          <div class="section-title">
+            <h2>Supports</h2>
+            <span>Click canvas or add by x</span>
+          </div>
+          <div class="two-col">
+            <label>
+              Type
+              <select id="supportType">
+                <option value="fixed">Fixed</option>
+                <option value="pinned">Pinned</option>
+                <option value="roller">Roller</option>
+              </select>
+            </label>
+            <label>
+              x
+              <input id="supportX" type="number" step="1" value="0">
+              <span>mm</span>
+            </label>
+          </div>
+          <button id="addSupport" class="secondary-button" type="button"><i data-lucide="plus"></i><span>Add Support</span></button>
+        </section>
+
+        <section class="control-section">
+          <div class="section-title">
+            <h2>Loads</h2>
+            <span>Downward is positive</span>
+          </div>
+          <div class="two-col">
+            <label>
+              Point x
+              <input id="pointX" type="number" step="1" value="60">
+              <span>mm</span>
+            </label>
+            <label>
+              Force
+              <input id="pointForce" type="number" step="5" value="80">
+              <span>N</span>
+            </label>
+          </div>
+          <button id="addPointLoad" class="secondary-button" type="button"><i data-lucide="plus"></i><span>Add Point Load</span></button>
+          <div class="three-col">
+            <label>
+              UDL start
+              <input id="udlStart" type="number" step="1" value="20">
+            </label>
+            <label>
+              end
+              <input id="udlEnd" type="number" step="1" value="100">
+            </label>
+            <label>
+              w
+              <input id="udlMag" type="number" step="0.05" value="0.25">
+              <span>N/mm</span>
+            </label>
+          </div>
+          <button id="addUdl" class="secondary-button" type="button"><i data-lucide="plus"></i><span>Add UDL</span></button>
+          <div class="inline-list-head">
+            <h3>Applied Loads</h3>
+            <span id="loadCount">0</span>
+          </div>
+          <div id="loadList" class="inline-item-list"></div>
+        </section>
+      </aside>
+
+      <section class="main-stage" aria-label="Simulation stage">
+        <div class="canvas-toolbar">
+          <div id="canvasHint">Edit mode: drag vertices. Switch tools to place supports or loads.</div>
+          <div class="view-toggles">
+            <label class="toggle-chip"><input id="showStress" type="checkbox" checked><span>Stress</span></label>
+            <label class="toggle-chip"><input id="showDeflection" type="checkbox" checked><span>Deflected Shape</span></label>
+            <label class="toggle-chip"><input id="showMesh" type="checkbox"><span>Mesh</span></label>
+          </div>
+        </div>
+        <svg id="modelSvg" class="model-svg" role="img" aria-label="Beam model with geometry, supports, loads, and result overlays"></svg>
+        <div class="diagram-grid">
+          <article class="diagram-card">
+            <div class="diagram-title"><h3>Deflection</h3><span id="deflectionPeak">0 mm</span></div>
+            <svg id="deflectionDiagram" class="diagram-svg" role="img" aria-label="Deflection diagram"></svg>
+          </article>
+          <article class="diagram-card">
+            <div class="diagram-title"><h3>Stress / Utilization</h3><span id="stressPeak">0 MPa</span></div>
+            <svg id="stressDiagram" class="diagram-svg" role="img" aria-label="Stress utilization diagram"></svg>
+          </article>
+          <article class="diagram-card">
+            <div class="diagram-title"><h3>Moment</h3><span id="momentPeak">0 N mm</span></div>
+            <svg id="momentDiagram" class="diagram-svg" role="img" aria-label="Bending moment diagram"></svg>
+          </article>
+          <article class="diagram-card">
+            <div class="diagram-title"><h3>Shear</h3><span id="shearPeak">0 N</span></div>
+            <svg id="shearDiagram" class="diagram-svg" role="img" aria-label="Shear force diagram"></svg>
+          </article>
+        </div>
+      </section>
+
+      <aside class="results-panel" aria-label="Results and section view">
+        <section class="result-section">
+          <div class="section-title">
+            <h2>Scenario</h2>
+            <span id="activeScenarioLabel">Realistic</span>
+          </div>
+          <div id="scenarioButtons" class="segmented">
+            <button type="button" data-scenario="optimistic">Optimistic</button>
+            <button class="is-active" type="button" data-scenario="realistic">Realistic</button>
+            <button type="button" data-scenario="pessimistic">Pessimistic</button>
+          </div>
+          <dl id="metricList" class="metric-list"></dl>
+          <div id="riskBands" class="risk-bands"></div>
+        </section>
+
+        <section class="result-section">
+          <div class="section-title">
+            <h2>Slice Section</h2>
+            <span id="sectionXLabel">layer y = 10 mm</span>
+          </div>
+          <input id="sectionSlider" class="section-slider" type="range" min="0" max="100" value="50" step="1" aria-label="Horizontal slice layer">
+          <div class="slice-layer-controls" aria-label="Horizontal layer controls">
+            <button id="sliceLayerDown" class="secondary-button" type="button"><i data-lucide="arrow-down"></i><span>Layer Down</span></button>
+            <button id="sliceLayerUp" class="secondary-button" type="button"><i data-lucide="arrow-up"></i><span>Layer Up</span></button>
+          </div>
+          <div class="slice-nav" aria-label="Slice view zoom and pan controls">
+            <button id="sliceZoomOut" class="icon-control" type="button" aria-label="Zoom slice out"><i data-lucide="minus"></i></button>
+            <button id="sliceZoomIn" class="icon-control" type="button" aria-label="Zoom slice in"><i data-lucide="plus"></i></button>
+            <button id="slicePanUp" class="icon-control" type="button" aria-label="Pan slice up"><i data-lucide="chevron-up"></i></button>
+            <button id="slicePanLeft" class="icon-control" type="button" aria-label="Pan slice left"><i data-lucide="chevron-left"></i></button>
+            <button id="sliceReset" class="icon-control" type="button" aria-label="Reset slice view"><i data-lucide="scan"></i></button>
+            <button id="slicePanRight" class="icon-control" type="button" aria-label="Pan slice right"><i data-lucide="chevron-right"></i></button>
+            <button id="slicePanDown" class="icon-control" type="button" aria-label="Pan slice down"><i data-lucide="chevron-down"></i></button>
+          </div>
+          <div id="sectionView" class="section-view"></div>
+          <div class="three-col">
+            <label>
+              Layer
+              <input id="layerHeight" type="number" min="0.05" step="0.05" value="0.2">
+              <span>mm</span>
+            </label>
+            <label>
+              Line
+              <input id="lineWidth" type="number" min="0.2" step="0.05" value="0.45">
+              <span>mm</span>
+            </label>
+            <label>
+              Walls
+              <input id="perimeters" type="number" min="1" step="1" value="3">
+            </label>
+          </div>
+        </section>
+
+        <section class="result-section">
+          <div class="section-title">
+            <h2>Model Items</h2>
+            <span id="itemCount">0 items</span>
+          </div>
+          <div id="itemList" class="item-list"></div>
+        </section>
+      </aside>
+    </main>
+
+    <div id="toast" class="toast" hidden></div>
+
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+    <script src="app.js?v=6"></script>
+  </body>
+</html>

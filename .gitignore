@@ -1,0 +1,33 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+
+# Local OS/editor noise
+.DS_Store
+Thumbs.db
+*.swp
+*.tmp
+*.log
+
+# Generated analysis output
+analysis/
+
+# Raw vendor corpus: keep only public source metadata in Git.
+filament_datasheets/**
+!filament_datasheets/
+!filament_datasheets/README.md
+!filament_datasheets/_manifest/
+filament_datasheets/_manifest/*
+!filament_datasheets/_manifest/filament_datasheets.csv
+!filament_datasheets/_manifest/vendor_sources.md
+!filament_datasheets/_manifest/html_material_specs.json
+!filament_datasheets/_manifest/ocr_text_overrides.json
+
+# Merge/run snapshots
+*.source-merge-*
+

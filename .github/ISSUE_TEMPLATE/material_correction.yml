@@ -1,0 +1,40 @@
+name: Material data correction
+description: Report a wrong, missing, or suspicious material property.
+title: "[Data]: "
+labels:
+  - data
+body:
+  - type: input
+    id: material
+    attributes:
+      label: Material and supplier
+      placeholder: Prusament PLA by Prusa Polymers
+    validations:
+      required: true
+  - type: input
+    id: property
+    attributes:
+      label: Property
+      placeholder: Density, nozzle temperature, tensile strength, etc.
+    validations:
+      required: true
+  - type: input
+    id: expected
+    attributes:
+      label: Expected value and unit
+      placeholder: "1.24 g/cm3"
+    validations:
+      required: true
+  - type: input
+    id: source
+    attributes:
+      label: Vendor source URL
+      placeholder: https://example.com/material-datasheet.pdf
+    validations:
+      required: true
+  - type: textarea
+    id: notes
+    attributes:
+      label: Notes
+      description: Add page number, table row, print orientation, or test method when available.
+

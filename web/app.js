@@ -667,6 +667,7 @@ function selectMaterial(id) {
 }
 
 function renderSelectedSummary() {
+  if (!els.selectedSummary) return;
   const m = selectedMaterial();
   if (!m) {
     els.selectedSummary.innerHTML = `<p>No material selected.</p>`;

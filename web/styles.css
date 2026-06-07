@@ -1,15 +1,15 @@
 :root {
   color-scheme: light;
-  --bg: #f3f1ec;
-  --bg-raised: #faf9f5;
+  --bg: #f6f7f7;
+  --bg-raised: #ffffff;
   --surface: #ffffff;
-  --surface-2: #f7f6f1;
-  --surface-3: #ece8de;
+  --surface-2: #f2f4f4;
+  --surface-3: #e6ebea;
   --ink: #1f2426;
-  --muted: #66706e;
-  --soft: #8a918d;
-  --line: #d9d5ca;
-  --line-strong: #b8b1a5;
+  --muted: #667372;
+  --soft: #899391;
+  --line: #d5dddd;
+  --line-strong: #aebaba;
   --active-line: rgba(42, 190, 182, 0.9);
   --accent: #177e7a;
   --accent-2: #b35e3e;
@@ -64,8 +64,9 @@ body {
   margin: 0;
   min-width: 340px;
   font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  background:
-    linear-gradient(180deg, color-mix(in oklab, var(--bg), var(--surface) 22%), var(--bg) 360px);
+  background-color: var(--bg);
+  background-image:
+    linear-gradient(180deg, color-mix(in srgb, var(--bg), var(--surface) 22%), var(--bg) 360px);
   color: var(--ink);
 }
 
@@ -102,7 +103,9 @@ button {
   gap: 18px;
   padding: 16px 22px;
   border-bottom: 1px solid var(--line);
-  background: color-mix(in oklab, var(--surface), transparent 4%);
+  background-color: var(--surface);
+  background-image: linear-gradient(0deg, color-mix(in srgb, var(--surface), transparent 4%), color-mix(in srgb, var(--surface), transparent 4%));
+  -webkit-backdrop-filter: blur(14px);
   backdrop-filter: blur(14px);
   position: sticky;
   top: 0;
@@ -268,7 +271,8 @@ p {
 .filters {
   border-right: 1px solid var(--line);
   padding: 18px;
-  background: color-mix(in oklab, var(--surface-2), var(--bg) 28%);
+  background-color: var(--surface-2);
+  background-image: linear-gradient(0deg, color-mix(in srgb, var(--surface-2), var(--bg) 28%), color-mix(in srgb, var(--surface-2), var(--bg) 28%));
 }
 
 label {
@@ -426,9 +430,9 @@ dd {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  border: 1px solid color-mix(in oklab, var(--mat), var(--line) 52%);
+  border: 1px solid color-mix(in srgb, var(--mat), var(--line) 52%);
   border-radius: 999px;
-  background: color-mix(in oklab, var(--mat), var(--surface) var(--mat-soft-alpha));
+  background: color-mix(in srgb, var(--mat), var(--surface) var(--mat-soft-alpha));
   color: var(--ink);
 }
 
@@ -446,7 +450,7 @@ dd {
   flex: 0 0 auto;
   border-radius: 999px;
   background: var(--mat);
-  box-shadow: 0 0 0 1px color-mix(in oklab, var(--mat), var(--surface) 28%);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--mat), var(--surface) 28%);
 }
 
 .content {
@@ -454,10 +458,6 @@ dd {
   display: grid;
   gap: 18px;
   min-width: 0;
-}
-
-.overview-strip {
-  display: block;
 }
 
 .kpi-grid {
@@ -638,7 +638,7 @@ th {
 }
 
 .sort-button.is-active .sort-indicator {
-  background: color-mix(in oklab, var(--accent), var(--surface) 84%);
+  background: color-mix(in srgb, var(--accent), var(--surface) 84%);
   color: var(--accent);
 }
 
@@ -648,11 +648,11 @@ tbody tr {
 }
 
 tbody tr:hover {
-  background: color-mix(in oklab, var(--accent), var(--surface) 92%);
+  background: color-mix(in srgb, var(--accent), var(--surface) 92%);
 }
 
 tbody tr.selected {
-  background: color-mix(in oklab, var(--accent), var(--surface) 88%);
+  background: color-mix(in srgb, var(--accent), var(--surface) 88%);
   box-shadow: inset 0 0 0 1px var(--active-line);
 }
 
@@ -691,19 +691,19 @@ tbody tr.selected {
 
 .status.parsed {
   color: var(--good);
-  background: color-mix(in oklab, var(--good), var(--surface) 88%);
+  background: color-mix(in srgb, var(--good), var(--surface) 88%);
 }
 
 .status.needs_ocr,
 .status.no_properties_found {
   color: var(--warn);
-  background: color-mix(in oklab, var(--warn), var(--surface) 88%);
+  background: color-mix(in srgb, var(--warn), var(--surface) 88%);
 }
 
 .status.error,
 .status.skipped {
   color: var(--bad);
-  background: color-mix(in oklab, var(--bad), var(--surface) 88%);
+  background: color-mix(in srgb, var(--bad), var(--surface) 88%);
 }
 
 .pin-col {
@@ -777,7 +777,7 @@ tbody tr.selected {
   display: grid;
   gap: 11px;
   background:
-    linear-gradient(135deg, color-mix(in oklab, var(--mat), var(--surface) 78%), transparent 58%),
+    linear-gradient(135deg, color-mix(in srgb, var(--mat), var(--surface) 78%), transparent 58%),
     var(--surface);
   border-bottom: 1px solid var(--line);
 }
@@ -814,7 +814,7 @@ tbody tr.selected {
 .source-card a {
   color: var(--accent);
   text-decoration: none;
-  border-bottom: 1px solid color-mix(in oklab, var(--accent), transparent 48%);
+  border-bottom: 1px solid color-mix(in srgb, var(--accent), transparent 48%);
 }
 
 .source-links a:hover,
@@ -1000,14 +1000,14 @@ tbody tr.selected {
   border: 1px solid var(--line-strong);
   border-radius: 999px;
   color: var(--accent);
-  background: color-mix(in oklab, var(--accent), var(--surface) 88%);
+  background: color-mix(in srgb, var(--accent), var(--surface) 88%);
   font-size: 10px;
   vertical-align: middle;
 }
 
 .orientation-badge.z {
   color: var(--accent-2);
-  background: color-mix(in oklab, var(--accent-2), var(--surface) 88%);
+  background: color-mix(in srgb, var(--accent-2), var(--surface) 88%);
 }
 
 .prop-row small,
@@ -1087,7 +1087,7 @@ tbody tr.selected {
   padding-right: 38px;
   display: grid;
   gap: 8px;
-  background: linear-gradient(180deg, color-mix(in oklab, var(--mat), var(--surface) 88%), var(--surface));
+  background: linear-gradient(180deg, color-mix(in srgb, var(--mat), var(--surface) 88%), var(--surface));
   cursor: pointer;
 }
 
@@ -1101,14 +1101,14 @@ tbody tr.selected {
   place-items: center;
   border: 1px solid var(--line);
   border-radius: 6px;
-  background: color-mix(in oklab, var(--surface), transparent 4%);
+  background: color-mix(in srgb, var(--surface), transparent 4%);
   color: var(--muted);
   cursor: pointer;
 }
 
 .pin-remove:hover {
   color: var(--bad);
-  border-color: color-mix(in oklab, var(--bad), var(--line) 45%);
+  border-color: color-mix(in srgb, var(--bad), var(--line) 45%);
 }
 
 .pin-remove svg {
@@ -1193,8 +1193,8 @@ tbody tr.selected {
   position: absolute;
   top: 5px;
   height: 16px;
-  border: 1px solid color-mix(in oklab, var(--mat), var(--line-strong) 34%);
-  background: color-mix(in oklab, var(--mat), var(--surface) 62%);
+  border: 1px solid color-mix(in srgb, var(--mat), var(--line-strong) 34%);
+  background: color-mix(in srgb, var(--mat), var(--surface) 62%);
 }
 
 .boxplot-median {
@@ -1336,9 +1336,9 @@ tbody tr.selected {
   place-items: center;
   width: 23px;
   height: 23px;
-  border: 1px solid color-mix(in oklab, var(--line), transparent 14%);
+  border: 1px solid color-mix(in srgb, var(--line), transparent 14%);
   border-radius: 6px;
-  background: color-mix(in oklab, var(--surface), transparent 8%);
+  background: color-mix(in srgb, var(--surface), transparent 8%);
   color: var(--muted);
   opacity: 0.42;
   cursor: pointer;
@@ -1439,7 +1439,7 @@ tbody tr.selected {
 }
 
 .radar-fill {
-  fill: color-mix(in oklab, hsl(var(--mat-h, 180) var(--mat-s, 60%) var(--mat-l)), transparent 78%);
+  fill: color-mix(in srgb, hsl(var(--mat-h, 180) var(--mat-s, 60%) var(--mat-l)), transparent 78%);
   stroke: none;
 }
 
@@ -1548,7 +1548,7 @@ tbody tr.selected {
   padding: 9px 10px;
   border: 1px solid var(--line-strong);
   border-radius: 6px;
-  background: color-mix(in oklab, var(--surface), var(--ink) 4%);
+  background: color-mix(in srgb, var(--surface), var(--ink) 4%);
   color: var(--ink);
   box-shadow: var(--shadow);
   font-size: 12px;
@@ -1557,9 +1557,260 @@ tbody tr.selected {
   pointer-events: none;
 }
 
+@-moz-document url-prefix() {
+  :root:not([data-theme="dark"]) {
+    --bg: #f6f7f7;
+    --bg-raised: #ffffff;
+    --surface: #ffffff;
+    --surface-2: #f2f4f4;
+    --surface-3: #e6ebea;
+    --ink: #202627;
+    --muted: #687372;
+    --soft: #8b9492;
+    --line: #d5dddd;
+    --line-strong: #aebaba;
+    --shadow: 0 14px 32px rgba(22, 31, 31, 0.08);
+    --mat-soft-alpha: 88%;
+  }
+
+  :root:not([data-theme="dark"]) body,
+  :root:not([data-theme="dark"]) .layout,
+  :root:not([data-theme="dark"]) .content {
+    background: var(--bg);
+  }
+
+  :root:not([data-theme="dark"]) .topbar,
+  :root:not([data-theme="dark"]) .filters,
+  :root:not([data-theme="dark"]) .stats-panel,
+  :root:not([data-theme="dark"]) .legend-panel,
+  :root:not([data-theme="dark"]) .table-panel,
+  :root:not([data-theme="dark"]) .detail-panel,
+  :root:not([data-theme="dark"]) .compare-panel,
+  :root:not([data-theme="dark"]) .family-panel,
+  :root:not([data-theme="dark"]) .map-panel,
+  :root:not([data-theme="dark"]) .spread-panel,
+  :root:not([data-theme="dark"]) .radar-panel,
+  :root:not([data-theme="dark"]) .corpus-summary-panel,
+  :root:not([data-theme="dark"]) .metric-card,
+  :root:not([data-theme="dark"]) .fingerprint-card,
+  :root:not([data-theme="dark"]) .thermal-card,
+  :root:not([data-theme="dark"]) .source-card,
+  :root:not([data-theme="dark"]) .feedback-card,
+  :root:not([data-theme="dark"]) .pin-card {
+    background: var(--surface);
+  }
+
+  :root:not([data-theme="dark"]) .detail-hero,
+  :root:not([data-theme="dark"]) .pin-card {
+    background: var(--surface);
+  }
+
+  :root:not([data-theme="dark"]) th,
+  :root:not([data-theme="dark"]) .panel-header,
+  :root:not([data-theme="dark"]) .detail-toolbar,
+  :root:not([data-theme="dark"]) .segmented,
+  :root:not([data-theme="dark"]) .map-reset-button,
+  :root:not([data-theme="dark"]) .clear-filters-button,
+  :root:not([data-theme="dark"]) input,
+  :root:not([data-theme="dark"]) select,
+  :root:not([data-theme="dark"]) textarea {
+    background: var(--surface-2);
+  }
+
+  :root:not([data-theme="dark"]) .legend-chip,
+  :root:not([data-theme="dark"]) .chip,
+  :root:not([data-theme="dark"]) .material-pill,
+  :root:not([data-theme="dark"]) .status,
+  :root:not([data-theme="dark"]) .pin-remove,
+  :root:not([data-theme="dark"]) .feedback-button {
+    background: var(--surface-2);
+  }
+
+  :root:not([data-theme="dark"]) .mini-track,
+  :root:not([data-theme="dark"]) .fingerprint-track,
+  :root:not([data-theme="dark"]) .thermal-track,
+  :root:not([data-theme="dark"]) .meter,
+  :root:not([data-theme="dark"]) .bar,
+  :root:not([data-theme="dark"]) .pin-bars span,
+  :root:not([data-theme="dark"]) .family-range,
+  :root:not([data-theme="dark"]) .boxplot {
+    background: var(--surface-3);
+  }
+
+  :root:not([data-theme="dark"]) tbody tr:hover {
+    background: #eef7f6;
+  }
+
+  :root:not([data-theme="dark"]) tbody tr.selected {
+    background: #e7f3f2;
+  }
+
+  :root[data-theme="dark"] {
+    --bg: #111515;
+    --surface: #181d1d;
+    --surface-2: #1e2424;
+    --surface-3: #252c2c;
+    --line: #3d4644;
+    --line-strong: #58635f;
+  }
+
+  :root[data-theme="dark"] body {
+    background: var(--bg);
+  }
+
+  :root[data-theme="dark"] .topbar,
+  :root[data-theme="dark"] .filters,
+  :root[data-theme="dark"] .stats-panel,
+  :root[data-theme="dark"] .legend-panel,
+  :root[data-theme="dark"] .table-panel,
+  :root[data-theme="dark"] .detail-panel,
+  :root[data-theme="dark"] .compare-panel,
+  :root[data-theme="dark"] .family-panel,
+  :root[data-theme="dark"] .map-panel,
+  :root[data-theme="dark"] .spread-panel,
+  :root[data-theme="dark"] .radar-panel,
+  :root[data-theme="dark"] .corpus-summary-panel,
+  :root[data-theme="dark"] .metric-card,
+  :root[data-theme="dark"] .fingerprint-card,
+  :root[data-theme="dark"] .thermal-card,
+  :root[data-theme="dark"] .source-card,
+  :root[data-theme="dark"] .feedback-card,
+  :root[data-theme="dark"] .pin-card {
+    background: var(--surface);
+  }
+
+  :root[data-theme="dark"] .detail-hero,
+  :root[data-theme="dark"] .pin-card {
+    background: var(--surface);
+  }
+
+  :root[data-theme="dark"] th,
+  :root[data-theme="dark"] .panel-header,
+  :root[data-theme="dark"] .detail-toolbar,
+  :root[data-theme="dark"] .segmented,
+  :root[data-theme="dark"] .map-reset-button,
+  :root[data-theme="dark"] .clear-filters-button,
+  :root[data-theme="dark"] input,
+  :root[data-theme="dark"] select,
+  :root[data-theme="dark"] textarea {
+    background: var(--surface-2);
+  }
+
+  :root[data-theme="dark"] .legend-chip,
+  :root[data-theme="dark"] .chip,
+  :root[data-theme="dark"] .material-pill,
+  :root[data-theme="dark"] .status,
+  :root[data-theme="dark"] .pin-remove,
+  :root[data-theme="dark"] .feedback-button {
+    background: var(--surface-2);
+  }
+
+  :root[data-theme="dark"] .mini-track,
+  :root[data-theme="dark"] .fingerprint-track,
+  :root[data-theme="dark"] .thermal-track,
+  :root[data-theme="dark"] .meter,
+  :root[data-theme="dark"] .bar,
+  :root[data-theme="dark"] .pin-bars span,
+  :root[data-theme="dark"] .family-range,
+  :root[data-theme="dark"] .boxplot,
+  :root[data-theme="dark"] .material-map svg rect {
+    background: var(--surface-3);
+    fill: var(--surface-2);
+  }
+
+  :root[data-theme="dark"] tbody tr:hover {
+    background: #1c2b2a;
+  }
+
+  :root[data-theme="dark"] tbody tr.selected {
+    background: #183231;
+  }
+}
+
+@supports (-moz-appearance: none) {
+  :root:not([data-theme="dark"]) {
+    color-scheme: light;
+    --bg: #f6f7f7;
+    --surface: #ffffff;
+    --surface-2: #f2f4f4;
+    --surface-3: #e6ebea;
+    --ink: #202627;
+    --muted: #687372;
+    --line: #d5dddd;
+    --line-strong: #aebaba;
+  }
+
+  :root:not([data-theme="dark"]),
+  :root:not([data-theme="dark"]) body,
+  :root:not([data-theme="dark"]) .layout,
+  :root:not([data-theme="dark"]) .content {
+    background: #f6f7f7 !important;
+    color: #202627 !important;
+  }
+
+  :root:not([data-theme="dark"]) .topbar,
+  :root:not([data-theme="dark"]) .filters,
+  :root:not([data-theme="dark"]) .stats-panel,
+  :root:not([data-theme="dark"]) .legend-panel,
+  :root:not([data-theme="dark"]) .table-panel,
+  :root:not([data-theme="dark"]) .detail-panel,
+  :root:not([data-theme="dark"]) .compare-panel,
+  :root:not([data-theme="dark"]) .family-panel,
+  :root:not([data-theme="dark"]) .map-panel,
+  :root:not([data-theme="dark"]) .spread-panel,
+  :root:not([data-theme="dark"]) .radar-panel,
+  :root:not([data-theme="dark"]) .corpus-summary-panel,
+  :root:not([data-theme="dark"]) .metric-card,
+  :root:not([data-theme="dark"]) .fingerprint-card,
+  :root:not([data-theme="dark"]) .thermal-card,
+  :root:not([data-theme="dark"]) .source-card,
+  :root:not([data-theme="dark"]) .feedback-card,
+  :root:not([data-theme="dark"]) .pin-card {
+    background: #ffffff !important;
+    color: #202627 !important;
+    border-color: #d5dddd !important;
+  }
+
+  :root:not([data-theme="dark"]) th,
+  :root:not([data-theme="dark"]) .panel-header,
+  :root:not([data-theme="dark"]) .detail-toolbar,
+  :root:not([data-theme="dark"]) .segmented,
+  :root:not([data-theme="dark"]) .map-reset-button,
+  :root:not([data-theme="dark"]) .clear-filters-button,
+  :root:not([data-theme="dark"]) input,
+  :root:not([data-theme="dark"]) select,
+  :root:not([data-theme="dark"]) textarea {
+    background: #f2f4f4 !important;
+    color: #202627 !important;
+    border-color: #d5dddd !important;
+  }
+
+  :root:not([data-theme="dark"]) .detail-hero {
+    background: #ffffff !important;
+  }
+
+  :root:not([data-theme="dark"]) .mini-track,
+  :root:not([data-theme="dark"]) .fingerprint-track,
+  :root:not([data-theme="dark"]) .thermal-track,
+  :root:not([data-theme="dark"]) .meter,
+  :root:not([data-theme="dark"]) .bar,
+  :root:not([data-theme="dark"]) .pin-bars span,
+  :root:not([data-theme="dark"]) .family-range,
+  :root:not([data-theme="dark"]) .boxplot {
+    background: #e6ebea !important;
+  }
+
+  :root:not([data-theme="dark"]) tbody tr:hover {
+    background: #eef7f6 !important;
+  }
+
+  :root:not([data-theme="dark"]) tbody tr.selected {
+    background: #e7f3f2 !important;
+  }
+}
+
 @media (max-width: 1280px) {
   .browser-grid,
-  .overview-strip,
   .analytics-grid {
     grid-template-columns: 1fr;
   }

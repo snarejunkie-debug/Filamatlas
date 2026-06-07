@@ -426,7 +426,7 @@ dd {
 .legend-chip,
 .chip,
 .material-pill {
-  --mat: hsl(var(--mat-h, 180) var(--mat-s, 60%) var(--mat-l));
+  --mat: #278f8d;
   display: inline-flex;
   align-items: center;
   gap: 6px;
@@ -674,7 +674,7 @@ tbody tr.selected {
 }
 
 .material-dot {
-  --mat: hsl(var(--mat-h, 180) var(--mat-s, 60%) var(--mat-l));
+  --mat: #278f8d;
   width: 12px;
   height: 12px;
 }
@@ -764,7 +764,7 @@ tbody tr.selected {
   display: block;
   height: 100%;
   border-radius: inherit;
-  background: hsl(var(--mat-h, 180) var(--mat-s, 60%) var(--mat-l));
+  background: var(--mat, #278f8d);
 }
 
 .detail-panel {
@@ -772,7 +772,7 @@ tbody tr.selected {
 }
 
 .detail-hero {
-  --mat: hsl(var(--mat-h, 180) var(--mat-s, 60%) var(--mat-l));
+  --mat: #278f8d;
   padding: 16px;
   display: grid;
   gap: 11px;
@@ -868,7 +868,7 @@ tbody tr.selected {
   display: block;
   height: 100%;
   border-radius: inherit;
-  background: hsl(var(--mat-h, 180) var(--mat-s, 60%) var(--mat-l));
+  background: var(--mat, #278f8d);
 }
 
 .fingerprint-panel,
@@ -1082,7 +1082,7 @@ tbody tr.selected {
 }
 
 .pin-card {
-  --mat: hsl(var(--mat-h, 180) var(--mat-s, 60%) var(--mat-l));
+  --mat: #278f8d;
   padding: 11px;
   padding-right: 38px;
   display: grid;
@@ -1134,7 +1134,7 @@ tbody tr.selected {
   display: block;
   height: 100%;
   border-radius: inherit;
-  background: hsl(var(--mat-h, 180) var(--mat-s, 60%) var(--mat-l));
+  background: var(--mat, #278f8d);
 }
 
 .pin-card.is-active {
@@ -1171,7 +1171,7 @@ tbody tr.selected {
 }
 
 .boxplot {
-  --mat: hsl(var(--mat-h, 180) var(--mat-s, 60%) var(--mat-l));
+  --mat: #278f8d;
   position: relative;
   height: 26px;
   margin: 1px 0 4px;
@@ -1439,18 +1439,18 @@ tbody tr.selected {
 }
 
 .radar-fill {
-  fill: color-mix(in srgb, hsl(var(--mat-h, 180) var(--mat-s, 60%) var(--mat-l)), transparent 78%);
+  fill: color-mix(in srgb, var(--mat, #278f8d), transparent 78%);
   stroke: none;
 }
 
 .radar-segment {
-  stroke: hsl(var(--mat-h, 180) var(--mat-s, 60%) var(--mat-l));
+  stroke: var(--mat, #278f8d);
   stroke-width: 2.2;
   stroke-linecap: round;
 }
 
 .radar-point {
-  fill: hsl(var(--mat-h, 180) var(--mat-s, 60%) var(--mat-l));
+  fill: var(--mat, #278f8d);
 }
 
 .radar-max-point {
@@ -1474,7 +1474,7 @@ tbody tr.selected {
   height: 10px;
   margin-right: 6px;
   border-radius: 2px;
-  background: hsl(var(--mat-h, 180) var(--mat-s, 60%) var(--mat-l));
+  background: var(--mat, #278f8d);
 }
 
 [data-tip],
@@ -1617,10 +1617,6 @@ tbody tr.selected {
     background: var(--surface-2);
   }
 
-  :root:not([data-theme="dark"]) .legend-chip,
-  :root:not([data-theme="dark"]) .chip,
-  :root:not([data-theme="dark"]) .material-pill,
-  :root:not([data-theme="dark"]) .status,
   :root:not([data-theme="dark"]) .pin-remove,
   :root:not([data-theme="dark"]) .feedback-button {
     background: var(--surface-2);
@@ -1696,10 +1692,6 @@ tbody tr.selected {
     background: var(--surface-2);
   }
 
-  :root[data-theme="dark"] .legend-chip,
-  :root[data-theme="dark"] .chip,
-  :root[data-theme="dark"] .material-pill,
-  :root[data-theme="dark"] .status,
   :root[data-theme="dark"] .pin-remove,
   :root[data-theme="dark"] .feedback-button {
     background: var(--surface-2);

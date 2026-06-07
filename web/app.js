@@ -1050,7 +1050,7 @@ function renderMap() {
       const style = colorStyle(colorValue, colorBy === "base_material" ? "base" : "family", m.base_material);
       const active = m.material_id === state.selectedId ? " is-active" : "";
       const tip = `${m.product}\n${m.supplier} / ${m.base_material}\n${xDef?.label || xKey}: ${metricValueText(x, xDef?.canonical_unit || xStat?.unit || "", xStat)}\n${yDef?.label || yKey}: ${metricValueText(y, yDef?.canonical_unit || yStat?.unit || "", yStat)}`;
-      return `<circle class="map-point${active}" data-id="${escapeAttr(m.material_id)}" data-tip="${escapeAttr(tip)}" cx="${sx(x)}" cy="${sy(y)}" r="${r}" fill="hsl(var(--mat-h) var(--mat-s) var(--mat-l))" fill-opacity="0.78" stroke="var(--surface)" stroke-width="1" style="${style}"></circle>`;
+      return `<circle class="map-point${active}" data-id="${escapeAttr(m.material_id)}" data-tip="${escapeAttr(tip)}" cx="${sx(x)}" cy="${sy(y)}" r="${r}" fill="var(--mat, #278f8d)" fill-opacity="0.78" stroke="var(--surface)" stroke-width="1" style="${style}"></circle>`;
     })
     .join("");
   const selectedPoint = points.find(({ m }) => m.material_id === state.selectedId);
@@ -1487,7 +1487,7 @@ function radarGroupSeries(label, materials, axes, className) {
   return {
     label,
     className,
-    style: className === "group-a" ? "--mat-h:177;--mat-s:70%;" : "--mat-h:18;--mat-s:72%;",
+    style: className === "group-a" ? colorStyle("Radar group A") : colorStyle("Radar group B"),
     stats,
     missing,
     tip: `${label}\nGroup average series\n${axes.length - missing} of ${axes.length} radar axes available.`,
@@ -1972,7 +1972,8 @@ function unique(values) {
 
 function colorStyle(value, scope = "base", baseHint = "") {
   const { hue, sat } = colorToken(value, scope, baseHint);
-  return `--mat-h:${hue};--mat-s:${sat}%;`;
+  const rgb = hslToRgb(hue, sat, 48);
+  return `--mat:${rgb};--mat-h:${hue};--mat-s:${sat}%;`;
 }
 
 function colorToken(value, scope = "base", baseHint = "") {
@@ -1998,6 +1999,25 @@ function hashString(value) {
 
 function modHue(value) {
   return Math.round(((value % 360) + 360) % 360);
+}
+
+function hslToRgb(hue, sat, light) {
+  const s = clamp(sat / 100, 0, 1);
+  const l = clamp(light / 100, 0, 1);
+  const c = (1 - Math.abs(2 * l - 1)) * s;
+  const hp = (((hue % 360) + 360) % 360) / 60;
+  const x = c * (1 - Math.abs((hp % 2) - 1));
+  let r = 0;
+  let g = 0;
+  let b = 0;
+  if (hp < 1) [r, g, b] = [c, x, 0];
+  else if (hp < 2) [r, g, b] = [x, c, 0];
+  else if (hp < 3) [r, g, b] = [0, c, x];
+  else if (hp < 4) [r, g, b] = [0, x, c];
+  else if (hp < 5) [r, g, b] = [x, 0, c];
+  else [r, g, b] = [c, 0, x];
+  const m = l - c / 2;
+  return `rgb(${Math.round((r + m) * 255)}, ${Math.round((g + m) * 255)}, ${Math.round((b + m) * 255)})`;
 }
 
 function initTooltip() {
